@@ -5,7 +5,7 @@
 
 class Questionnaire(object):
 
-    def __init__(self, questions):
+    def __init__(self, questions = []):
         """
         :param questions: list of questions
         """
