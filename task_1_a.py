@@ -45,11 +45,25 @@ class CsvReader(object):
 
     # Returns the value from a field (column) and index (row)
     def get_value(self, field_name, row_idx):
+        if not field_name in self.fieldnames:
+            print 'ERROR: "{0}" field not found'.format(field_name)
+            exit()
+        if row_idx < 0 or row_idx >= len(self.data):
+            print 'ERROR: index out of range'
+            exit()
+        # arguments ok, let's select the correct row and return requested field
         row = self.data[row_idx]
         return row[field_name]
 
     # Returns multiple vales from a field and a range of indices (rows)
     def get_values(self, field_name, row_range):
+        if not field_name in self.fieldnames:
+            print 'ERROR: "{0}" field not found'.format(field_name)
+            exit()
+        if min(row_range) < 0 or max(row_range) >= len(self.data):
+            print 'ERROR: index out of range'
+            exit()
+        # arguments ok, let's collect the rows
         result = []
         i = 0
         while i < len(self.data):

@@ -22,6 +22,9 @@ class CsvWriter(object):
 
     # Adds a row of values
     def add_row(self, record):
+        if len(record) <> len(self.fieldnames):
+            print "ERROR: length of record {0} doesn't match number of fields {1}".format(len(record), len(self.fieldnames))
+            exit()
         # a = ["d", "e"]
         # b = [1, 2]
         # zip(a, b) --> [('d', 1), ('e', 2)]
@@ -31,6 +34,12 @@ class CsvWriter(object):
 
     # Sets the value of the field (column) and index (row)
     def set_value(self, field_name, row_idx, value):
+        if not field_name in self.fieldnames:
+            print 'ERROR: "{0}" field not found'.format(field_name)
+            exit()
+        if row_idx < 0 or row_idx >= len(self.data):
+            print 'ERROR: index out of range'
+            exit()
         row = self.data[row_idx]
         row[field_name] = value
 
